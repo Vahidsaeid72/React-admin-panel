@@ -1,13 +1,12 @@
-import React from 'react';
-import Index from './layouts/admin/Index';
+import React from "react";
+import Layout from "./layouts/admin/Index";
 
 const App = () => {
   return (
     <div>
-      <Index/>
+      <Layout />
     </div>
   );
-}
+};
 
 export default App;
-

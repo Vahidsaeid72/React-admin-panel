@@ -18,6 +18,12 @@ body{
     /* box-sizing: content-box */
 }
 
+.modal-backdrop.fade{
+    display : none !important;
+}
+.navbar.fixed-top{
+    z-index: unset !important;
+}
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
@@ -188,7 +194,10 @@ td , th {
     top: 64px;
     height: calc(100vh - 64px);
     padding: 0;
-    z-index: 1000;
+
+}
+#sidebar_section a{
+    text-decoration: none;
 }
 #sidebar_section .mini_sidebar{
     width: 70px;
@@ -224,27 +233,27 @@ td , th {
     transform: scale(1);
 }
 
-#sidebar_section .mini_sidebar li{
+#sidebar_section .mini_sidebar .sidebar_items{
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
-#sidebar_section .mini_sidebar li:not(:first-child):hover{
+#sidebar_section .mini_sidebar .sidebar_items:not(:first-child):hover{
     background-color: rgb(85, 84, 84);
 }
 
-#sidebar_section .mini_sidebar li:not(:first-child){
+#sidebar_section .mini_sidebar .sidebar_items:not(:first-child){
     justify-content: right;
 }
 
-#sidebar_section .mini_sidebar li .sidebar_avatar_name{
+#sidebar_section .mini_sidebar .sidebar_items .sidebar_avatar_name{
     position: absolute;
     bottom: 0;
 }
 
-#sidebar_section .mini_sidebar li.avatar_li{
+#sidebar_section .mini_sidebar .sidebar_items.avatar_li{
     height: 110px !important;
     overflow: hidden;
 }
