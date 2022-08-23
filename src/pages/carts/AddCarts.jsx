@@ -75,7 +75,7 @@ const AddCarts = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-12 col-md-6 col-lg-8">
-              <div className="input-group my-3" dir_ltr>
+              <div className="input-group my-3 dir_ltr">
                 <span className="input-group-text justify-content-center w_15">
                   عدد
                 </span>
@@ -125,7 +125,7 @@ const AddCarts = () => {
               </div>
             </div>
             <div className="col-6">
-              <div className="input-group my-3" dir_ltr>
+              <div className="input-group my-3 dir_ltr">
                 <span className="input-group-text justify-content-center w-75">
                   200,000 تومان
                 </span>

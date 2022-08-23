@@ -80,7 +80,7 @@ const PaginatedTable = ({
           aria-label="Page navigation example"
           className="d-flex justify-content-center"
         >
-          <ul className={`pagination dir_ltr`}>
+          <ul className="={`pagination dir_ltr`}">
             <li
               className={`page-item ${
                 currentPage === 1 ? "disabled" : "pointer"

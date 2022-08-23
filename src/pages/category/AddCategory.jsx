@@ -14,8 +14,8 @@ const AddCategory = () => {
 
       <ModalsContainer
         fullscreen={true}
-        id="add_product_category_modal"
-        title=" افزودن دسته محصولات"
+        id={"add_product_category_modal"}
+        title={" افزودن دسته محصولات"}
       >
         <div className="container">
           <div className="row justify-content-center">

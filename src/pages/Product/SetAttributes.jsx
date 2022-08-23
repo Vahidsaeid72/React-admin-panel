@@ -1,61 +1,46 @@
 import React from "react";
 import ModalsContainer from "../../components/modalsContainer";
 
-const AddDelivery = () => {
+const SetAttributes = () => {
   return (
     <>
-      <button
-        className="btn btn-success d-flex justify-content-center align-items-center"
-        data-bs-toggle="modal"
-        data-bs-target="#add_delivery_modal"
-      >
-        <i className="fas fa-plus text-light"></i>
-      </button>
-
       <ModalsContainer
-        id={"add_delivery_modal"}
-        title={"افزودن روش ارسال"}
-        fullscreen={false}
+        id={"add_product_attr_modal"}
+        title={"افزودن ویژگی به دسته محصول"}
+        fullscreen={true}
       >
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-12">
+            <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group my-3 dir_ltr">
+                <span className="input-group-text w_6rem justify-content-center">
+                  عدد
+                </span>
                 <input type="text" className="form-control" placeholder="" />
                 <span className="input-group-text w_8rem justify-content-center">
-                  عنوان
+                  ویژگی اول
                 </span>
               </div>
             </div>
-            <div className="col-12">
+            <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group my-3 dir_ltr">
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="تومان (فقط عدد)"
-                />
-                <span className="input-group-text w_8rem justify-content-center">
-                  هزینه
+                <span className="input-group-text w_6rem justify-content-center">
+                  کیلو
                 </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir_ltr">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="فقط عدد"
-                />
-                <span className="input-group-text w_8rem justify-content-center">
-                  مدت ارسال
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir_ltr">
                 <input type="text" className="form-control" placeholder="" />
                 <span className="input-group-text w_8rem justify-content-center">
-                  واحد مدت ارسال
+                  ویژگی دوم
+                </span>
+              </div>
+            </div>
+            <div className="col-12 col-md-6 col-lg-8">
+              <div className="input-group my-3 dir_ltr">
+                <span className="input-group-text w_6rem justify-content-center">
+                  مگاهرتز
+                </span>
+                <input type="text" className="form-control" placeholder="" />
+                <span className="input-group-text w_8rem justify-content-center">
+                  ویژگی سوم
                 </span>
               </div>
             </div>
@@ -69,4 +54,4 @@ const AddDelivery = () => {
   );
 };
 
-export default AddDelivery;
+export default SetAttributes;

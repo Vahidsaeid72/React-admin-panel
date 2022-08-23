@@ -196,7 +196,7 @@
     'duotone': 'fad',
     'brands': 'fab'
   };
-  var LAYERS_TEXT_CLASSNAME = 'fa-layers-text';
+  var LAYERS_TEXT_className=" = 'fa-layers-text';
   var FONT_FAMILY_PATTERN = /Font Awesome 5 (Solid|Regular|Light|Duotone|Brands|Free|Pro)/;
   var FONT_WEIGHT_TO_PREFIX = {
     '900': 'fas',
@@ -1902,7 +1902,7 @@
   function generateMutation(node) {
     var nodeMeta = parseMeta(node);
 
-    if (~nodeMeta.extra.classes.indexOf(LAYERS_TEXT_CLASSNAME)) {
+    if (~nodeMeta.extra.classes.indexOf(LAYERS_TEXT_className=")) {
       return generateLayersText(node, nodeMeta);
     } else {
       return generateSvgReplacementMutation(node, nodeMeta);
@@ -1923,7 +1923,7 @@
     };
 
     var prefixes = config.autoFetchSvg ? Object.keys(PREFIX_TO_STYLE) : Object.keys(styles$3);
-    var prefixesDomQuery = [".".concat(LAYERS_TEXT_CLASSNAME, ":not([").concat(DATA_FA_I2SVG, "])")].concat(prefixes.map(function (p) {
+    var prefixesDomQuery = [".".concat(LAYERS_TEXT_className=", ":not([").concat(DATA_FA_I2SVG, "])")].concat(prefixes.map(function (p) {
       return ".".concat(p, ":not([").concat(DATA_FA_I2SVG, "])");
     })).join(', ');
 

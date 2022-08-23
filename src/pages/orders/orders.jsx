@@ -1,4 +1,5 @@
 import React from "react";
+import AddOrderDetails from "./AddOrderDetails";
 import AddOrders from "./AddOrders";
 import OrdersTable from "./ordersTable";
 
@@ -26,6 +27,7 @@ const Orders = () => {
           </div>
         </div>
         <OrdersTable />
+        <AddOrderDetails />
       </div>
     </>
   );

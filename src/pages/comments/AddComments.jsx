@@ -5,11 +5,11 @@ const AddComments = () => {
   return (
     <>
       <button
-        class="btn btn-success d-flex justify-content-center align-items-center"
+        className="btn btn-success d-flex justify-content-center align-items-center"
         data-bs-toggle="modal"
         data-bs-target="#add_comment_modal"
       >
-        <i class="fas fa-plus text-light"></i>
+        <i className="fas fa-plus text-light"></i>
       </button>
       <ModalsContainer
         id={"add_comment_modal"}
