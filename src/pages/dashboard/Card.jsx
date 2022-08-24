@@ -1,13 +1,6 @@
 import React from "react";
 
-const Card = ({
-  currentValue,
-  title,
-  desc,
-  icon,
-  lastWeekValue,
-  lastMonthValue,
-}) => {
+const Card = ({currentValue , title, desc, icon, lastWeekValue, lastMonthValue}) => {
   return (
     <div className="col-12 col-md-6 col-lg-3 dashboard_card_parent">
       <div className="card text-dark bg-info mb-3 dashboard_card">

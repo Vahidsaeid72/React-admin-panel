@@ -3,23 +3,28 @@ import React from "react";
 import * as Yup from "yup";
 import AuthFormikControl from "../../components/AuthForm/AuthFormikControl";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const initialValues = {
-  Phone: "",
+  phone: "",
   password: "",
   remember: false,
 };
-const onSubmit = (values) => {
+const onSubmit = (values, navigate) => {
   axios
     .post("https://ecomadminapi.azhadev.ir/api/auth/login", {
       ...values,
       remember: values.remember ? 1 : 0,
     })
     .then((res) => {
-      console.log(res);
+      if (res.status === 200) {
+        localStorage.setItem("loginToken", JSON.stringify(res.data));
+        navigate("/");
+        console.log(res);
+      }
     });
 };
 const validationSchema = Yup.object({
-  Phone: Yup.number().required("لطفا این قسمت را پر کنید"),
+  phone: Yup.number().required("لطفا این قسمت را پر کنید"),
   password: Yup.string()
     .required("لطفا این قسمت را پر کنید")
     .matches(/^[a-zA-Z0-9@!%$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
@@ -27,10 +32,11 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={(values) => onSubmit(values, navigate)}
       validationSchema={validationSchema}
     >
       {(formik) => {
@@ -42,8 +48,8 @@ const Login = () => {
               <AuthFormikControl
                 formik={formik}
                 control="input"
-                type="number"
-                name="Phone"
+                type="text"
+                name="phone"
                 icon="fa fa-mobile"
                 label="شماره همراه"
               />
