@@ -94,7 +94,9 @@ body{
     margin-left: 3px;
     white-space: nowrap;
 }
-
+.mypad{
+    padding: 0.5px 0;
+}
 .chips_elem i{
     position: relative;
     top: 2px;
@@ -115,7 +117,7 @@ body{
 }
 
 .font_08{
-    font-size: 0.8rem !important;
+    font-size: 12px !important;
 }
 .no_border_style{
     border-style: hidden !important;
@@ -185,6 +187,7 @@ td , th {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
 }
 .top_navbar .mini_menu{
     font-size: 0.8rem;
@@ -218,8 +221,8 @@ td , th {
 #sidebar_section{
     position: fixed;
     right: 0;
-    top: 64px;
-    height: calc(100vh - 64px);
+    top: 50px;
+    height: calc(100vh - 50px);
     padding: 0;
 
 }

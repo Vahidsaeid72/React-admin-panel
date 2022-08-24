@@ -1,18 +1,16 @@
 import Chart from "chart.js/auto";
 
-export const setDashboardChart = (labels , datapoints)=>{
+export const setDashboardChart = (labels, datapoints) => {
     const data = {
         labels: labels,
-        datasets: [
-            {
-                label: 'فروش ماه',
-                data: datapoints,
-                borderColor: "#0062ff",
-                fill: true,
-                cubicInterpolationMode: 'monotone',
-                tension: 0.4
-            }
-        ]
+        datasets: [{
+            label: 'فروش ماه',
+            data: datapoints,
+            borderColor: "#0062ff",
+            fill: true,
+            cubicInterpolationMode: 'monotone',
+            tension: 0.4
+        }]
     };
 
     const config = {
@@ -51,5 +49,11 @@ export const setDashboardChart = (labels , datapoints)=>{
     };
 
     const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx , config)
+    let myChart = new Chart(ctx, config)
+    myChart.destroy();
+    setTimeout(() => {
+        myChart = new Chart(ctx, config)
+
+    }, 100)
+
 }

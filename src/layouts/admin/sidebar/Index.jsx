@@ -74,7 +74,7 @@ const Index = () => {
             />
 
             {/* <!-- =================================== --> */}
-            <SidebarGroupItems title={"سفارشات و سکاربران و همکاران"} />
+            <SidebarGroupItems title={"کاربران و همکاران"} />
             <SidebarItem
               pagePath="/Users"
               icon={"fas fa-users"}
