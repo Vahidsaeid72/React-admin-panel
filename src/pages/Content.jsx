@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AdminContext } from "../context/adminLayoutContext";
+import Logout from "./Auth/Logout";
 import Brands from "./brands/Brands";
 import Carts from "./carts/carts";
 import Category from "./category/Category";
@@ -40,6 +41,7 @@ const Content = () => {
         <Route path="/Comments" element={<Comments />} />
         <Route path="/Permissions" element={<Permissions />} />
         <Route path="/Questions" element={<Questions />} />
+        <Route path="/Logout" element={<Logout />} />
       </Routes>
     </section>
   );

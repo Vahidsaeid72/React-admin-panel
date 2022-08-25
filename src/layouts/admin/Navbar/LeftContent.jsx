@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LeftContent = () => {
+const Leftcontent = () => {
   return (
     <div className="left_content d-flex flex-row-reverse">
       <i
@@ -14,34 +15,32 @@ const LeftContent = () => {
         aria-labelledby="dropdownMenuButton1"
       >
         <li className="my-2">
-          <a className="dropdown-item d-block text-center" href="/">
-            قاسم بساکی
-          </a>
+          <a className="dropdown-item d-block text-center">وحید سعید</a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-tachometer-alt"></i>
-          <a className="dropdown-item" href="/">
+          <Link to={"/"} className="dropdown-item" href="#">
             داشبورد
-          </a>
+          </Link>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-paper-plane"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             تیکت ها
           </a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-envelope"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             پیام ها
           </a>
         </li>
         <hr />
         <li className="d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-power-off"></i>
-          <a className="dropdown-item" href="/">
+          <Link to={"/logout"} className="dropdown-item">
             خروج
-          </a>
+          </Link>
         </li>
       </ul>
       <i className="far fa-bell fa-2x mx-3 pointer position-relative">
@@ -52,4 +51,4 @@ const LeftContent = () => {
   );
 };
 
-export default LeftContent;
+export default Leftcontent;
