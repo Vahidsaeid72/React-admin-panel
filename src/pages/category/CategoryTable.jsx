@@ -1,103 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import PaginatedTable from "../../components/paginatedtable";
+import { getCategoriesService } from "../../services/category";
+import { Alert } from "../../utils/alert";
 import AddCategory from "./AddCategory";
+import Actions from "./tableAdditions/Actions";
+import ShowInMenu from "./tableAdditions/showInMenu";
+import jMoment from "jalali-moment";
+import { canvertDatetojalali } from "../../utils/convertData";
 
 const CategoryTable = () => {
-  const data = [
-    {
-      id: "1",
-      category: "bbb",
-      title: "vahid",
-      price: "111",
-      stock: "5",
-      like_count: "10",
-      status: "1",
-    },
-    {
-      id: "2",
-      category: "bbb",
-      title: "saeid",
-      price: "111",
-      stock: "5",
-      like_count: "10",
-      status: "1",
-    },
-    {
-      id: "3",
-      category: "abas",
-      title: "abas",
-      price: "111",
-      stock: "5",
-      like_count: "10",
-      status: "1",
-    },
-    {
-      id: "4",
-      category: "javad",
-      title: "javad",
-      price: "111",
-      stock: "5",
-      like_count: "10",
-      status: "1",
-    },
-    {
-      id: "5",
-      category: "reza",
-      title: "reza",
-      price: "111",
-      stock: "5",
-      like_count: "10",
-      status: "1",
-    },
-  ];
-
-  const datainfo = [
-    {
-      field: "id",
-      title: "#",
-    },
-    {
-      field: "title",
-      title: "عنوان محصول",
-    },
-    {
-      field: "price",
-      title: "قیمت",
-    },
-  ];
-
-  const additionalElements = (itemId) => {
-    return (
-      <>
-        <i
-          className="fas fa-project-diagram text-info mx-1 hoverable_text pointer has_tooltip"
-          title="زیرمجموعه"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-        <i
-          className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-          title="ویرایش دسته"
-          data-bs-placement="top"
-          data-bs-toggle="modal"
-          data-bs-target="#add_product_category_modal"
-        ></i>
-        <i
-          className="fas fa-plus text-success mx-1 hoverable_text pointer has_tooltip"
-          title="افزودن ویژگی"
-          data-bs-placement="top"
-          data-bs-toggle="modal"
-          data-bs-target="#add_product_category_attr_modal"
-        ></i>
-        <i
-          className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-          title="حذف دسته"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-      </>
-    );
+  const [data, setData] = useState([]);
+  const params = useParams();
+  const location = useLocation();
+  const handlegetCategories = async () => {
+    try {
+      const res = await getCategoriesService(params.categoryId);
+      if (res.status === 200) {
+        setData(res.data.data);
+        // setData([
+        //   { id: 1, title: "شوینده", parent_id: null, created_at: "26121402" },
+        //   { id: 2, title: "کفش", parent_id: null, created_at: "26121402" },
+        //   { id: 3, title: "لباس", parent_id: null, created_at: "26121402" },
+        //   { id: 4, title: "ماشین", parent_id: null, created_at: "26121402" },
+        // ]);
+      } else {
+        Alert("مشکل", res.data.message, "error");
+      }
+    } catch (error) {
+      Alert("مشکل", "مشکلی از سمت سرور رخ داده است", "error");
+    }
   };
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "title", title: "عنوان محصول" },
+    { field: "parent_id", title: "والد" },
+  ];
+  useEffect(() => {
+    handlegetCategories();
+  }, [params]);
 
   const searchPrams = {
     title: "جستوجو",
@@ -105,21 +47,38 @@ const CategoryTable = () => {
     searchField: "title",
   };
 
-  const additionField = {
-    title: "عملیات",
-    elements: (itemId) => additionalElements(itemId),
-  };
+  const additionField = [
+    {
+      title: "تاریخ",
+      elements: (rowData) => canvertDatetojalali(rowData.created_at),
+    },
+    {
+      title: "نمایش در منو",
+      elements: (rowData) => <ShowInMenu rowData={rowData} />,
+    },
+    {
+      title: "عملیات",
+      elements: (rowData) => <Actions rowData={rowData} />,
+    },
+  ];
+
   return (
-    <PaginatedTable
-      data={data}
-      datainfo={datainfo}
-      additionField={additionField}
-      searchPrams={searchPrams}
-      numOfPage={8}
-    >
-      <AddCategory />
-    </PaginatedTable>
+    <>
+      <Outlet />
+      {data.length ? (
+        <PaginatedTable
+          data={data}
+          dataInfo={dataInfo}
+          additionField={additionField}
+          searchPrams={searchPrams}
+          numOfPage={8}
+        >
+          <AddCategory />
+        </PaginatedTable>
+      ) : (
+        <h5 className="text-center text-danger my-5">هیچ دسته ای یافت نشد</h5>
+      )}
+    </>
   );
 };
-
 export default CategoryTable;

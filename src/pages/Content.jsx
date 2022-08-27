@@ -5,6 +5,7 @@ import Logout from "./Auth/Logout";
 import Brands from "./brands/Brands";
 import Carts from "./carts/carts";
 import Category from "./category/Category";
+import CategoryChildren from "./category/CategoryChildren";
 import Colors from "./colors/colors";
 import Comments from "./comments/comments";
 import Dashboard from "./dashboard/Dashboard";
@@ -27,7 +28,9 @@ const Content = () => {
     >
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/Category" element={<Category />} />
+        <Route path="/Category" element={<Category />}>
+          <Route path=":CategoryId" element={<CategoryChildren />} />
+        </Route>
         <Route path="/Product" element={<Product />} />
         <Route path="/colors" element={<Colors />} />
         <Route path="/Guarantes" element={<Guarantes />} />

@@ -4,7 +4,7 @@ import AddCategory from "../pages/category/AddCategory";
 const PaginatedTable = ({
   children,
   data,
-  datainfo,
+  dataInfo,
   additionField,
   searchPrams,
   numOfPage,
@@ -36,7 +36,8 @@ const PaginatedTable = ({
       data.filter((d) => d[searchPrams.searchField].includes(searchChar))
     );
     setCurrentPage(1);
-  }, [searchChar]);
+  }, [searchChar, data]);
+
   return (
     <>
       <div className="row justify-content-between">
@@ -58,19 +59,27 @@ const PaginatedTable = ({
       <table className="table table-responsive text-center table-hover table-bordered">
         <thead className="table-secondary">
           <tr>
-            {datainfo.map((h) => (
+            {dataInfo.map((h) => (
               <th key={h.field}>{h.title}</th>
             ))}
-            {additionField ? <th>{additionField.title}</th> : null}
+            {additionField
+              ? additionField.map((a, index) => (
+                  <th key={a.id + "__" + index}>{a.title}</th>
+                ))
+              : null}
           </tr>
         </thead>
         <tbody>
           {tableData.map((d) => (
             <tr key={d.id}>
-              {datainfo.map((info) => (
+              {dataInfo.map((info) => (
                 <td key={info.field + "_" + d.id}>{d[info.field]}</td>
               ))}
-              {additionField ? <th>{additionField.elements(d.id)}</th> : null}
+              {additionField
+                ? additionField.map((a, index) => (
+                    <th key={a.id + "__" + index}>{a.elements(d)}</th>
+                  ))
+                : null}
             </tr>
           ))}
         </tbody>

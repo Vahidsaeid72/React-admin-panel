@@ -1,7 +1,7 @@
 import React from "react";
 import AddAttributes from "./AddAttributes";
-import AddCategory from "./AddCategory";
 import CategoryTable from "./CategoryTable";
+
 const Category = () => {
   return (
     <div>

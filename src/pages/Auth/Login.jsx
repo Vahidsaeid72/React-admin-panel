@@ -2,34 +2,29 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import AuthFormikControl from "../../components/AuthForm/AuthFormikControl";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../utils/alert";
+import { loginService } from "../../services/auth";
 
 const initialValues = {
   phone: "",
   password: "",
   remember: false,
 };
-const onSubmit = (values, submitMethods, navigate) => {
-  axios
-    .post("https://ecomadminapi.azhadev.ir/api/auth/login", {
-      ...values,
-      remember: values.remember ? 1 : 0,
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem("loginToken", JSON.stringify(res.data));
-        navigate("/");
-      } else {
-        Alert("متاسفم !", res.data.message, "error");
-      }
-      submitMethods.setSubmitting(false);
-    })
-    .catch((error) => {
-      submitMethods.setSubmitting(false);
-      Alert("متاسفم !", "متاسفانه مشکلی از سمت سرور رخ داده", "error");
-    });
+const onSubmit = async (values, submitMethods, navigate) => {
+  try {
+    const res = await loginService(values);
+    if (res.status === 200) {
+      localStorage.setItem("loginToken", JSON.stringify(res.data));
+      navigate("/");
+    } else {
+      Alert("متاسفم !", res.data.message, "error");
+    }
+    submitMethods.setSubmitting(false);
+  } catch (error) {
+    submitMethods.setSubmitting(false);
+    Alert("متاسفم !", "متاسفانه مشکلی از سمت سرور رخ داده", "error");
+  }
 };
 const validationSchema = Yup.object({
   phone: Yup.number().required("لطفا این قسمت را پر کنید"),
