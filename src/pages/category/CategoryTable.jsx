@@ -65,19 +65,19 @@ const CategoryTable = () => {
   return (
     <>
       <Outlet />
-      {data.length ? (
-        <PaginatedTable
-          data={data}
-          dataInfo={dataInfo}
-          additionField={additionField}
-          searchPrams={searchPrams}
-          numOfPage={8}
-        >
-          <AddCategory />
-        </PaginatedTable>
-      ) : (
+
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        additionField={additionField}
+        searchPrams={searchPrams}
+        numOfPage={8}
+      >
+        <AddCategory />
+      </PaginatedTable>
+      {data.length === 0 ? (
         <h5 className="text-center text-danger my-5">هیچ دسته ای یافت نشد</h5>
-      )}
+      ) : null}
     </>
   );
 };
