@@ -59,11 +59,6 @@ const validationSchema = Yup.object({
   show_in_menu: Yup.boolean(),
 });
 
-// const parents = [
-//   { id: 1, value: "test" },
-//   { id: 2, value: "test2" },
-// ];
-
 const AddCategory = ({ setForceRender }) => {
   const [parents, setParents] = useState([]);
   const handleGetParentsCategories = async () => {
@@ -71,7 +66,6 @@ const AddCategory = ({ setForceRender }) => {
       const res = await getCategoriesService();
       if (res.status == 200) {
         const allParents = res.data.data;
-        console.log(allParents);
         setParents(
           allParents.map((p) => {
             return { id: p.id, value: p.title };

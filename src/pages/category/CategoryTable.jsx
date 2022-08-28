@@ -17,7 +17,7 @@ const CategoryTable = () => {
   const handlegetCategories = async () => {
     try {
       setLoading(true);
-      const res = await getCategoriesService(params.categoryId);
+      const res = await getCategoriesService(params.CategoryId);
       if (res.status === 200) {
         setData(res.data.data);
       }

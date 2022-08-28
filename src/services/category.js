@@ -2,7 +2,7 @@ import httpServices from './httpServices'
 
 
 export const getCategoriesService = (id=null) => {
-    return httpServices(`/admin/categories${id? `?paren=${id}`:""}`,'get')
+    return httpServices(`/admin/categories${id? `?parent=${id}`:""}`,'get')
 }
 
 export const createNewCategoryServis = (data) => {
