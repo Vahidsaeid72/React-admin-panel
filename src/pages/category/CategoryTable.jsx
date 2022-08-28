@@ -24,11 +24,9 @@ const CategoryTable = () => {
         //   { id: 3, title: "لباس", parent_id: null, created_at: "26121402" },
         //   { id: 4, title: "ماشین", parent_id: null, created_at: "26121402" },
         // ]);
-      } else {
-        Alert("مشکل", res.data.message, "error");
       }
     } catch (error) {
-      Alert("مشکل", "مشکلی از سمت سرور رخ داده است", "error");
+      console.log(error);
     }
   };
 
