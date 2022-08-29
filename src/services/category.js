@@ -24,3 +24,7 @@ export const createNewCategoryServis = (data) => {
 export const editCategoryService =(id , data)=>{
     return httpServices(`/admin/categories/${id}`,`put`,data)
 }
+
+export const deleteCategoryService =(id)=>{
+    return httpServices(`/admin/categories/${id}`,`delete`)
+}
