@@ -4,7 +4,9 @@ import httpServices from './httpServices'
 export const getCategoriesService = (id=null) => {
     return httpServices(`/admin/categories${id? `?parent=${id}`:""}`,'get')
 }
-
+export const getSingleCategoryService = (id) => {
+    return httpServices(`/admin/categories/${id}`,'get')
+}
 export const createNewCategoryServis = (data) => {
     if(data.image){
         let formdata = new FormData();
@@ -17,4 +19,8 @@ export const createNewCategoryServis = (data) => {
         data = formdata
     }
     return httpServices(`/admin/categories`,`post`,data)
+}
+
+export const editCategoryService =(id , data)=>{
+    return httpServices(`/admin/categories/${id}`,`put`,data)
 }
