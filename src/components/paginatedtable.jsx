@@ -90,7 +90,7 @@ const PaginatedTable = ({
           </tbody>
         </table>
       ) : (
-        <h5 className="text-center text-danger my-5">هیچ دسته ای یافت نشد</h5>
+        <h5 className="text-center text-danger my-5">هیچ رکوردی یافت نشد</h5>
       )}
 
       {pageCount > 1 ? (

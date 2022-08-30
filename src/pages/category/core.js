@@ -45,7 +45,7 @@ export const initialValues = {
         /^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/,
         "فقط از حروف و اعداد استفاده شود"
       ),
-    description: Yup.string().matches(
+    description: Yup.string().required("لطفا این قسمت را پر کنید").matches(
       /^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/,
       "فقط از حروف و اعداد استفاده شود"
     ),
