@@ -40,6 +40,9 @@ body{
     pointer-events: none !important;
     opacity: 0.7;
 }
+.danger-shadow{
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}
 .modal-backdrop.fade{
     display : none !important;
 }
@@ -51,7 +54,9 @@ body{
     height: 40px;
     margin-left:10px;
 }
-
+.is_inline .input-group{
+    margin : 0 !important
+}
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
     width: 5px !important;
