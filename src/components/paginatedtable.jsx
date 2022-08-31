@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AddCategory from "../pages/category/AddCategory";
 import SpinnerLoad from "./spinnerLoad";
 
 const PaginatedTable = ({
