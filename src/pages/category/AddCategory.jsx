@@ -116,6 +116,7 @@ const AddCategory = ({ setForceRender }) => {
                     options={parents}
                     name="parent_id"
                     label="دسته والد"
+                    firstItem="دسته مورد نظر را انتخاب کنید ..."
                   />
                 ) : null}
                 <FormikControl

@@ -1,43 +1,35 @@
 import React, { useEffect, useState } from "react";
 import SpinnerLoad from "./spinnerLoad";
 
-const PaginatedTable = ({
+const PaginatedDataTable = ({
   children,
-  data,
+  tableData,
   dataInfo,
-  additionField,
-  searchPrams,
-  numOfPage,
   loading,
+  pageCount,
+  currentPage,
+  setCurrentPage,
+  searchParams,
+  handleSearch,
 }) => {
-  const [initialData, setInitialData] = useState(data);
-  const [tableData, setTableData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); //صفحه جاری
-  const [pages, setPages] = useState([]); // شماره های پایین
-  const [pageCount, setPageCount] = useState(1); // تعداد صفحات
-  const [searchChar, setSearchChar] = useState("");
+  const [pages, setPages] = useState([]);
+
   const pageRange = 3;
+
+  let timeout;
+
+  const handleSetSearchChar = (char) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleSearch(char);
+    }, 1000);
+  };
+
   useEffect(() => {
-    let pCount = Math.ceil(initialData.length / numOfPage);
-    setPageCount(pCount);
     let pArr = [];
-    for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
+    for (let i = 1; i <= pageCount; i++) pArr.push(i);
     setPages(pArr);
-  }, [initialData]);
-
-  useEffect(() => {
-    let start = numOfPage * currentPage - numOfPage;
-    let end = numOfPage * currentPage;
-
-    setTableData(initialData.slice(start, end));
-  }, [currentPage, initialData]);
-
-  useEffect(() => {
-    setInitialData(
-      data.filter((d) => d[searchPrams.searchField].includes(searchChar))
-    );
-    setCurrentPage(1);
-  }, [searchChar, data]);
+  }, [pageCount]);
 
   return (
     <>
@@ -47,10 +39,10 @@ const PaginatedTable = ({
             <input
               type="text"
               className="form-control"
-              placeholder={searchPrams.placeholder}
-              onChange={(e) => setSearchChar(e.target.value)}
+              placeholder={searchParams.placeholder}
+              onChange={(e) => handleSetSearchChar(e.target.value)}
             />
-            <span className="input-group-text">{searchPrams.title}</span>
+            <span className="input-group-text">{searchParams.title}</span>
           </div>
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
@@ -59,37 +51,33 @@ const PaginatedTable = ({
       </div>
       {loading ? (
         <SpinnerLoad colorClass={"text-primary"} />
-      ) : data.length ? (
+      ) : tableData.length ? (
         <table className="table table-responsive text-center table-hover table-bordered">
           <thead className="table-secondary">
             <tr>
-              {dataInfo.map((h) => (
-                <th key={h.field}>{h.title}</th>
+              {dataInfo.map((i, index) => (
+                <th key={i.field || `notField__${index}`}>{i.title}</th>
               ))}
-              {additionField
-                ? additionField.map((a, index) => (
-                    <th key={a.id + "__" + index}>{a.title}</th>
-                  ))
-                : null}
             </tr>
           </thead>
           <tbody>
             {tableData.map((d) => (
               <tr key={d.id}>
-                {dataInfo.map((info) => (
-                  <td key={info.field + "_" + d.id}>{d[info.field]}</td>
-                ))}
-                {additionField
-                  ? additionField.map((a, index) => (
-                      <th key={a.id + "__" + index}>{a.elements(d)}</th>
-                    ))
-                  : null}
+                {dataInfo.map((i, index) =>
+                  i.field ? (
+                    <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                  ) : (
+                    <td key={d.id + "__" + i.id + "__" + index}>
+                      {i.elements(d)}
+                    </td>
+                  )
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <h5 className="text-center text-danger my-5">هیچ رکوردی یافت نشد</h5>
+        <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>
       )}
 
       {pages.length > 1 ? (
@@ -164,4 +152,4 @@ const PaginatedTable = ({
   );
 };
 
-export default PaginatedTable;
+export default PaginatedDataTable;

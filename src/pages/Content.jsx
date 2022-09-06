@@ -15,7 +15,9 @@ import Discounts from "./discounts/discounts";
 import Guarantes from "./guarantee/guarantes";
 import Orders from "./orders/orders";
 import Permissions from "./permissions/permissions";
+import AddProduct from "./Product/AddProduct";
 import Product from "./Product/Product";
+import SetAttributes from "./Product/setAttr/SetAttributes";
 import Questions from "./questions/questions";
 import Roles from "./roles/roles";
 import Users from "./users/users";
@@ -37,6 +39,8 @@ const Content = () => {
           element={<Attributes />}
         />
         <Route path="/Product" element={<Product />} />
+        <Route path="/products/add-product" element={<AddProduct />} />
+        <Route path="/products/set-attr" element={<SetAttributes />} />
         <Route path="/colors" element={<Colors />} />
         <Route path="/Guarantes" element={<Guarantes />} />
         <Route path="/Brands" element={<Brands />} />

@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PrevPageButton = () => {
+const PrevPageButton = ({ className }) => {
   const navigate = useNavigate();
   return (
-    <button className="btn btn-sm btn-secondary" onClick={() => navigate(-1)}>
+    <button
+      type="button"
+      className={`btn btn-sm btn-secondary ${className}`}
+      onClick={() => navigate(-1)}
+    >
       بازگشت
     </button>
   );
