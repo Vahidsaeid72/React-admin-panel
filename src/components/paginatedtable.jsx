@@ -5,7 +5,6 @@ const PaginatedTable = ({
   children,
   data,
   dataInfo,
-  additionField,
   searchPrams,
   numOfPage,
   loading,
@@ -17,6 +16,7 @@ const PaginatedTable = ({
   const [pageCount, setPageCount] = useState(1); // تعداد صفحات
   const [searchChar, setSearchChar] = useState("");
   const pageRange = 3;
+
   useEffect(() => {
     let pCount = Math.ceil(initialData.length / numOfPage);
     setPageCount(pCount);
@@ -63,27 +63,23 @@ const PaginatedTable = ({
         <table className="table table-responsive text-center table-hover table-bordered">
           <thead className="table-secondary">
             <tr>
-              {dataInfo.map((h) => (
-                <th key={h.field}>{h.title}</th>
+              {dataInfo.map((i, index) => (
+                <th key={i.field || `notField__${index}`}>{i.title}</th>
               ))}
-              {additionField
-                ? additionField.map((a, index) => (
-                    <th key={a.id + "__" + index}>{a.title}</th>
-                  ))
-                : null}
             </tr>
           </thead>
           <tbody>
             {tableData.map((d) => (
               <tr key={d.id}>
-                {dataInfo.map((info) => (
-                  <td key={info.field + "_" + d.id}>{d[info.field]}</td>
-                ))}
-                {additionField
-                  ? additionField.map((a, index) => (
-                      <th key={a.id + "__" + index}>{a.elements(d)}</th>
-                    ))
-                  : null}
+                {dataInfo.map((i, index) =>
+                  i.field ? (
+                    <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                  ) : (
+                    <td key={d.id + "__" + i.id + "__" + index}>
+                      {i.elements(d)}
+                    </td>
+                  )
+                )}
               </tr>
             ))}
           </tbody>
@@ -100,9 +96,8 @@ const PaginatedTable = ({
           <ul className="pagination dir_ltr">
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == 1 ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == 1 ? "disabled" : ""
+                  }`}
                 aria-label="Previous"
                 onClick={() => setCurrentPage(currentPage - 1)}
               >
@@ -121,12 +116,11 @@ const PaginatedTable = ({
             ) : null}
             {pages.map((page) =>
               page < currentPage + pageRange &&
-              page > currentPage - pageRange ? (
+                page > currentPage - pageRange ? (
                 <li className="page-item" key={page}>
                   <span
-                    className={`page-link pointer ${
-                      currentPage == page ? "alert-success" : ""
-                    }`}
+                    className={`page-link pointer ${currentPage == page ? "alert-success" : ""
+                      }`}
                     onClick={() => setCurrentPage(page)}
                   >
                     {page}
@@ -148,9 +142,8 @@ const PaginatedTable = ({
 
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == pageCount ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == pageCount ? "disabled" : ""
+                  }`}
                 aria-label="Next"
                 onClick={() => setCurrentPage(currentPage + 1)}
               >

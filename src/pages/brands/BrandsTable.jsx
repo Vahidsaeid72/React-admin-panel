@@ -17,10 +17,8 @@ const BrandsTable = () => {
     { field: "original_name", title: "عنوان لاتین" },
     { field: "persian_name", title: "عنوان فارسی" },
     { field: "descriptions", title: "توضیحات" },
-  ];
-
-  const additionField = [
     {
+      field: null,
       title: "لوگو",
       elements: (rowData) =>
         rowData.logo ? (
@@ -28,6 +26,7 @@ const BrandsTable = () => {
         ) : null,
     },
     {
+      field: null,
       title: "عملیات",
       elements: (rowData) => (
         <Actions
@@ -38,6 +37,8 @@ const BrandsTable = () => {
       ),
     },
   ];
+
+
 
   const searchParams = {
     title: "جستجو",
@@ -86,7 +87,6 @@ const BrandsTable = () => {
       <PaginatedTable
         data={data}
         dataInfo={dataInfo}
-        additionField={additionField}
         searchPrams={searchParams}
         numOfPage={8}
         loading={loading}

@@ -1,24 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import ModalsContainer from "../../components/modalsContainer";
 
-const AddDidscounts = () => {
+const AddDiscounts = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <button
-        className="btn btn-success d-flex justify-content-center align-items-center"
-        data-bs-toggle="modal"
-        data-bs-target="#add_discount_modal"
-      >
-        <i className="fas fa-plus text-light"></i>
-      </button>
       <ModalsContainer
+        className="show d-block animate__animated animate__fadeInDown animate__fast"
         id={"add_discount_modal"}
         title={"افزودن کد تخفیف"}
         fullscreen={false}
+        closeFunction={() => navigate(-1)}
       >
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-12 col-md-6 col-lg-8">
+            <div className="col-12">
               <div className="input-group my-3 dir_ltr">
                 <input
                   type="text"
@@ -30,7 +28,7 @@ const AddDidscounts = () => {
                 </span>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-lg-8">
+            <div className="col-12">
               <div className="input-group my-3 dir_ltr">
                 <input
                   type="text"
@@ -42,7 +40,7 @@ const AddDidscounts = () => {
                 </span>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-lg-8">
+            <div className="col-12">
               <div className="input-group my-3 dir_ltr">
                 <input
                   type="number"
@@ -54,7 +52,7 @@ const AddDidscounts = () => {
                 </span>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-lg-8">
+            <div className="col-12">
               <div className="input-group my-3 dir_ltr">
                 <input
                   type="text"
@@ -66,7 +64,7 @@ const AddDidscounts = () => {
                 </span>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-lg-8 col-md-6 col-lg-8">
+            <div className="col-12 ">
               <div className="input-group my-3 dir_ltr">
                 <input
                   type="text"
@@ -104,4 +102,4 @@ const AddDidscounts = () => {
   );
 };
 
-export default AddDidscounts;
+export default AddDiscounts;

@@ -22,18 +22,13 @@ const Attributes = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "unit", title: "واحد" },
-  ];
-  const searchPrams = {
-    title: "جستوجو",
-    placeholder: "قسمتی از عنوان را وارد کنید",
-    searchField: "title",
-  };
-  const additionField = [
     {
+      field: null,
       title: "نمایش در فیلتر",
       elements: (rowData) => <ShowInFilter rowData={rowData} />,
     },
     {
+      field: null,
       title: "عملیات",
       elements: (rowData) => (
         <AttrAction
@@ -45,6 +40,11 @@ const Attributes = () => {
       ),
     },
   ];
+  const searchPrams = {
+    title: "جستوجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
   const handleGetCategoryAttrs = async () => {
     setLoading(true);
     try {
@@ -115,7 +115,6 @@ const Attributes = () => {
           <PaginatedTable
             data={data}
             dataInfo={dataInfo}
-            additionField={additionField}
             searchPrams={searchPrams}
             numOfPage={5}
             loading={loading}

@@ -55,6 +55,26 @@ const CategoryTable = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "parent_id", title: "والد" },
+    {
+      field: null,
+      title: "تاریخ",
+      elements: (rowData) => canvertDatetojalali(rowData.created_at),
+    },
+    {
+      field: null,
+      title: "نمایش در منو",
+      elements: (rowData) => <ShowInMenu rowData={rowData} />,
+    },
+    {
+      field: null,
+      title: "عملیات",
+      elements: (rowData) => (
+        <Actions
+          rowData={rowData}
+          handleDeleteCategory={handleDeleteCategory}
+        />
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -67,25 +87,6 @@ const CategoryTable = () => {
     searchField: "title",
   };
 
-  const additionField = [
-    {
-      title: "تاریخ",
-      elements: (rowData) => canvertDatetojalali(rowData.created_at),
-    },
-    {
-      title: "نمایش در منو",
-      elements: (rowData) => <ShowInMenu rowData={rowData} />,
-    },
-    {
-      title: "عملیات",
-      elements: (rowData) => (
-        <Actions
-          rowData={rowData}
-          handleDeleteCategory={handleDeleteCategory}
-        />
-      ),
-    },
-  ];
 
   return (
     <>
@@ -94,7 +95,6 @@ const CategoryTable = () => {
       <PaginatedTable
         data={data}
         dataInfo={dataInfo}
-        additionField={additionField}
         searchPrams={searchPrams}
         numOfPage={8}
         loading={loading}

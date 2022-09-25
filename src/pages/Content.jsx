@@ -11,11 +11,13 @@ import Colors from "./colors/colors";
 import Comments from "./comments/comments";
 import Dashboard from "./dashboard/Dashboard";
 import Deliverys from "./deliverys/deliverys";
+import AddDiscounts from "./discounts/AddDiscounts";
 import Discounts from "./discounts/discounts";
 import Guarantes from "./guarantee/guarantes";
 import Orders from "./orders/orders";
 import Permissions from "./permissions/permissions";
 import AddProduct from "./Product/AddProduct";
+import ProductGallery from "./Product/gallery/ProductGallery";
 import Product from "./Product/Product";
 import SetAttributes from "./Product/setAttr/SetAttributes";
 import Questions from "./questions/questions";
@@ -41,10 +43,13 @@ const Content = () => {
         <Route path="/Product" element={<Product />} />
         <Route path="/products/add-product" element={<AddProduct />} />
         <Route path="/products/set-attr" element={<SetAttributes />} />
+        <Route path="/products/gallery" element={<ProductGallery />} />
         <Route path="/colors" element={<Colors />} />
         <Route path="/Guarantes" element={<Guarantes />} />
         <Route path="/Brands" element={<Brands />} />
-        <Route path="/Discounts" element={<Discounts />} />
+        <Route path="/Discounts" element={<Discounts />} >
+          <Route path="/Discounts/add-discount-code" element={<AddDiscounts />} />
+        </Route>
         <Route path="/Carts" element={<Carts />} />
         <Route path="/Orders" element={<Orders />} />
         <Route path="/Deliverys" element={<Deliverys />} />

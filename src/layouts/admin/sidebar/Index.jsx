@@ -11,9 +11,8 @@ const Index = () => {
     <div>
       <section id="sidebar_section">
         <div
-          className={`mini_sidebar collapsedd bg-dark h-100 ${
-            showSidebar ? "expanded" : null
-          }`}
+          className={`mini_sidebar collapsedd bg-dark h-100 ${showSidebar ? "expanded" : null
+            }`}
         >
           <div className="p-0 m-0">
             <Avatar />
