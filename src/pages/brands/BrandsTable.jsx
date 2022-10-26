@@ -22,7 +22,7 @@ const BrandsTable = () => {
       title: "لوگو",
       elements: (rowData) =>
         rowData.logo ? (
-          <img src={apiPath + "/" + rowData.logo} width="40" />
+          <img src={apiPath + "/" + rowData.logo} width="40" alt="" />
         ) : null,
     },
     {

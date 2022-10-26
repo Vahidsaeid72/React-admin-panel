@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import SpinnerLoad from "./spinnerLoad";
 
 const PaginatedDataTable = ({
-  children,
-  tableData,
-  dataInfo,
+  children, //modal va btn baz kardanesh
+  tableData,  //etelatai ke gharare dar jadval namayesh dade beshe
+  dataInfo, // sakhtare jadval che fild ha va valio hayi ro namayesh bede
   loading,
-  pageCount,
-  currentPage,
-  setCurrentPage,
-  searchParams,
-  handleSearch,
+  pageCount,  //tedad safe k namayesh bede
+  currentPage,  //safe jari kodom safe bashe 
+  setCurrentPage, //taghire safe jari
+  searchParams, //karaktri ke rosh mikhaym serch bezanim
+  handleSearch, //mikham moghe taghir karakter haye serch requst be be server zade beshe va on mahsolato biyare
 }) => {
-  const [pages, setPages] = useState([]);
+  const [pages, setPages] = useState([]); //yek araye az tamam safahati ke darim mide baraye sakht dokme haye pagination azash estefade mikonim
 
-  const pageRange = 3;
+  const pageRange = 3;  //yani paginate ma ta chan safe ghablo ta chan safe bado namayesh bede
 
   let timeout;
 
@@ -88,9 +88,8 @@ const PaginatedDataTable = ({
           <ul className="pagination dir_ltr">
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == 1 ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == 1 ? "disabled" : ""
+                  }`}
                 aria-label="Previous"
                 onClick={() => setCurrentPage(currentPage - 1)}
               >
@@ -109,12 +108,11 @@ const PaginatedDataTable = ({
             ) : null}
             {pages.map((page) =>
               page < currentPage + pageRange &&
-              page > currentPage - pageRange ? (
+                page > currentPage - pageRange ? (
                 <li className="page-item" key={page}>
                   <span
-                    className={`page-link pointer ${
-                      currentPage == page ? "alert-success" : ""
-                    }`}
+                    className={`page-link pointer ${currentPage == page ? "alert-success" : ""
+                      }`}
                     onClick={() => setCurrentPage(page)}
                   >
                     {page}
@@ -136,9 +134,8 @@ const PaginatedDataTable = ({
 
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == pageCount ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == pageCount ? "disabled" : ""
+                  }`}
                 aria-label="Next"
                 onClick={() => setCurrentPage(currentPage + 1)}
               >

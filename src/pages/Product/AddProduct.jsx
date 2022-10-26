@@ -15,11 +15,9 @@ const AddProduct = () => {
   const location = useLocation();
   const productToEdit = location.state?.productToEdit;
   const [reInitialValues, setReInitialValues] = useState(null);
-
   const [selectedCategories, setSelectedCategories] = useState([]); // used in editting
   const [selectedColors, setSelectedColors] = useState([]); // used in editting
   const [selectedGuarantees, setSelectedGuarantees] = useState([]); // used in editting
-
   const [parentCategories, setParentCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -100,6 +98,7 @@ const AddProduct = () => {
       );
     }
   };
+
   useEffect(() => {
     getAllParentCategories();
     getAllBrands();
@@ -148,6 +147,7 @@ const AddProduct = () => {
                 )}
               </h4>
               <div className="row justify-content-center">
+
                 <FormikControl
                   label="دسته والد "
                   className={"col-md-6 col-lg-8"}

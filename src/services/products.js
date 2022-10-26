@@ -7,7 +7,9 @@ export const getProductsService = (page, countOnPage, searchChar) => {
     "get"
   );
 };
-
+export const getAllProductTitlesService = () => {
+  return httpServices(`/admin/products/all_titles`, "get");
+};
 export const deleteProductService = (productId) => {
   return httpServices(`/admin/products/${productId}`, "delete");
 };

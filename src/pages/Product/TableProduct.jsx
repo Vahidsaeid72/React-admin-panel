@@ -12,7 +12,7 @@ const TableProduct = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchChar, setSearchChar] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);  //صفحه جاری
   const [countOnPage, setCountOnPage] = useState(5);
   const [pageCount, setPageCount] = useState(0);
 
@@ -23,13 +23,6 @@ const TableProduct = () => {
       title: "گروه محصول",
       elements: (rowData) => rowData.categories[0]?.title,
     },
-    // {
-    //   field: null,
-    //   title: "توضیحات محصول",
-    //   elements: (rowData) => (
-    //     <span dangerouslySetInnerHTML={{ __html: rowData.descriptions }}></span>
-    //   ),
-    // },
     { field: "title", title: "عنوان" },
     { field: "price", title: "قیمت" },
     { field: "stock", title: "موجودی" },

@@ -5,7 +5,7 @@ import { useState } from "react";
 import FormikError from "./FormikError";
 
 const SearchableSelect = ({
-  resultType,
+  resultType, // if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
   options,
   name,
   label,
@@ -32,9 +32,7 @@ const SearchableSelect = ({
 
   const handleSelectItems = (selectedId, formik) => {
     if (
-      selectedItems.findIndex((d) => d.id == selectedId) == -1 &&
-      selectedId > 0
-    ) {
+      selectedItems.findIndex((d) => d.id == selectedId) == -1 && selectedId > 0) {
       const newData = [
         ...selectedItems,
         options.filter((o) => o.id == selectedId)[0],
@@ -42,8 +40,7 @@ const SearchableSelect = ({
       setSelectedItems(newData);
 
       const selectedIds = newData.map((nd) => nd.id);
-      const nameValue =
-        resultType == "string" ? selectedIds.join("-") : selectedIds;
+      const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds;
       formik.setFieldValue(name, nameValue);
     }
   };
@@ -54,8 +51,7 @@ const SearchableSelect = ({
       const newData = oldData.filter((d) => d.id != selectedId);
 
       const selectedIds = newData.map((nd) => nd.id);
-      const nameValue =
-        resultType == "string" ? selectedIds.join("-") : selectedIds;
+      const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds;
       formik.setFieldValue(name, nameValue);
 
       return newData;
@@ -67,20 +63,14 @@ const SearchableSelect = ({
       {({ form }) => {
         return (
           <div className={`col-12 ${className}`}>
-            <div
-              className="input-group mb-2 dir_ltr pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowItems(!showItems);
-              }}
+            <div className="input-group mb-2 dir_ltr pointer" onClick={(e) => {
+              e.stopPropagation();
+              setShowItems(!showItems);
+            }}
             >
               <div className="form-control" id={name + "-select"}>
                 <span className="text-secondary">{firstItem}</span>
-                <div
-                  className={`multi_select_items_content ${
-                    !showItems ? "d-none" : ""
-                  }`}
-                >
+                <div className={`multi_select_items_content ${!showItems ? "d-none" : ""}`}>
                   <input
                     type="text"
                     className="form-control"
@@ -95,7 +85,7 @@ const SearchableSelect = ({
                   <ul className="p-0">
                     {copyOptions.map((o) => (
                       <li
-                        key={o.id}
+                        key={o.id}  //option hayi ke zire input namayesh dade shode
                         className="multi_select_items pointer"
                         onClick={() => handleSelectItems(o.id, form)}
                       >
@@ -114,16 +104,15 @@ const SearchableSelect = ({
             </div>
             {selectedItems.length > 0
               ? selectedItems.map((selectedItem) => (
-                  <span className="chips_elem" key={selectedItem.id}>
-                    <i
-                      className="fas fa-times text-danger"
-                      onClick={(e) =>
-                        handleRemovefromSelectedItems(e, selectedItem.id, form)
-                      }
-                    ></i>
-                    {selectedItem.value}
-                  </span>
-                ))
+                <span className="chips_elem" key={selectedItem.id}>
+                  <i className="fas fa-times text-danger"
+                    onClick={(e) =>
+                      handleRemovefromSelectedItems(e, selectedItem.id, form)
+                    }
+                  ></i>
+                  {selectedItem.value}
+                </span>
+              ))
               : null}
             <ErrorMessage name={name} component={FormikError} />
           </div>
