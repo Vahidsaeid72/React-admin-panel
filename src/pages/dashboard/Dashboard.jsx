@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
+import useTitle from "../../hook/useTitle";
 import { destroyChart, setDashboardChart } from "../../utils/dashboardChart";
 import Card from "./Card";
 import ProductTable from "./ProductTable";
 
 const Dashboard = () => {
+  useTitle("داشبورد");
+
   useEffect(() => {
     const labels = [
       "فروردین",

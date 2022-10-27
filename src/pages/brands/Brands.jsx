@@ -1,7 +1,9 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import BrandsTable from "./BrandsTable";
 
 const Brands = () => {
+  useTitle("برند ها");
   return (
     <>
       <div

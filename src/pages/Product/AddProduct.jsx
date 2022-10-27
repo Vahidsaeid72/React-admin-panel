@@ -15,14 +15,37 @@ const AddProduct = () => {
   const location = useLocation();
   const productToEdit = location.state?.productToEdit;
   const [reInitialValues, setReInitialValues] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]); // used in editting
-  const [selectedColors, setSelectedColors] = useState([]); // used in editting
-  const [selectedGuarantees, setSelectedGuarantees] = useState([]); // used in editting
   const [parentCategories, setParentCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
+  //-------------------------------------------------------------------------------------------------------------------
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
   const [guarantees, setGuarantees] = useState([]);
+  //-------------------------------------------------------------------------------------------------------------------
+  const [selectedCategories, setSelectedCategories] = useState([]); // zamni meghdar migire ke mikhay edit anjam bedim
+  const [selectedColors, setSelectedColors] = useState([]); // zamni meghdar migire ke mikhay edit anjam bedim
+  const [selectedGuarantees, setSelectedGuarantees] = useState([]); // zamni meghdar migire ke mikhay edit anjam bedim
+  const setInitialSelectedValues = () => {
+    if (productToEdit) {
+      //migam zamani ke productToEdit dashtim boro rosh map bezan va az dakheleshon ye object be shekle {id,value} marbot be on bakhshi ke migam estekhraj kon va bede be state morde nazaresh va bad maghadir in state haro be onvan initioal item mifrestem be component haye select khodemon ta dar state hashon zakhire konan m chips haro besazan va be ma namayesh bedan
+      setSelectedCategories(
+        productToEdit.categories.map((c) => {
+          return { id: c.id, value: c.title };
+        })
+      );
+      setSelectedColors(
+        productToEdit.colors.map((c) => {
+          return { id: c.id, value: c.title };
+        })
+      );
+      setSelectedGuarantees(
+        productToEdit.guarantees.map((c) => {
+          return { id: c.id, value: c.title };
+        })
+      );
+    }
+  };
+  //-------------------------------------------------------------------------------------------------------------------
 
   const getAllParentCategories = async () => {
     const res = await getCategoriesService();
@@ -79,25 +102,7 @@ const AddProduct = () => {
       setMainCategories([]);
     }
   };
-  const setInitialSelectedValues = () => {
-    if (productToEdit) {
-      setSelectedCategories(
-        productToEdit.categories.map((c) => {
-          return { id: c.id, value: c.title };
-        })
-      );
-      setSelectedColors(
-        productToEdit.colors.map((c) => {
-          return { id: c.id, value: c.title };
-        })
-      );
-      setSelectedGuarantees(
-        productToEdit.guarantees.map((c) => {
-          return { id: c.id, value: c.title };
-        })
-      );
-    }
-  };
+
 
   useEffect(() => {
     getAllParentCategories();
@@ -106,11 +111,13 @@ const AddProduct = () => {
     getAllGuarantees();
     setInitialSelectedValues();
     for (const key in productToEdit) {
+      //vaghti etelaat ro az samte server daryaft mikone maghadir null ro tabdil kon be yek string khali to betone toye input haye ma namayesh dade beshe vaghti null bashe error mide chon ma to validtionschima goftim typesh  string bashe 
       if (productToEdit[key] === null) productToEdit[key] = "";
     }
     if (productToEdit) {
       setReInitialValues({
         ...productToEdit,
+        //chon etelaate prodoctToEdit ghesmat category/color/guarantees be shekle yek araye miyan nimitonim toye input khodemon be in shekl namayesh bedim baya on haro id hashono begirim va string be shekli ke mikhaym dar biyarim
         category_ids: productToEdit.categories.map((c) => c.id).join("-"),
         color_ids: productToEdit.colors.map((c) => c.id).join("-"),
         guarantee_ids: productToEdit.guarantees.map((g) => g.id).join("-"),

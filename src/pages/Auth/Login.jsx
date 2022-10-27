@@ -5,6 +5,7 @@ import AuthFormikControl from "../../components/AuthForm/AuthFormikControl";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../utils/alert";
 import { loginService } from "../../services/auth";
+import useTitle from "../../hook/useTitle";
 
 const initialValues = {
   phone: "",
@@ -34,8 +35,12 @@ const validationSchema = Yup.object({
   remember: Yup.boolean(),
 });
 
+
+
 const Login = () => {
   const navigate = useNavigate();
+  useTitle("ورود");
+
   return (
     <Formik
       initialValues={initialValues}

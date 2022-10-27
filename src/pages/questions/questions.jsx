@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddQuestions from "./AddQuestions";
 import QuestionsTable from "./QuestionsTable";
 
 const Questions = () => {
+  useTitle("سوالات");
   return (
     <>
       <div

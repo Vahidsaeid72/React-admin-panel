@@ -1,7 +1,9 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import PermissionsTable from "./PermissionsTable";
 
 const Permissions = () => {
+  useTitle("مجوزها");
   return (
     <>
       <div

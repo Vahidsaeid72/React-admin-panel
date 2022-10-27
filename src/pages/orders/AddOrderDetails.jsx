@@ -15,7 +15,7 @@ const AddOrderDetails = () => {
               <input
                 type="text"
                 className="form-control"
-                value="قاسم بساکی"
+                value="وحید سعید"
                 disabled
               />
             </div>

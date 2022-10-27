@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddComments from "./AddComments";
 import CommentsTable from "./CommentsTable";
 
 const Comments = () => {
+  useTitle("نظرات");
   return (
     <>
       <div

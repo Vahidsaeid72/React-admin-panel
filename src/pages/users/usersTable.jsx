@@ -19,7 +19,7 @@ const UsersTable = () => {
         <tbody>
           <tr>
             <td>1</td>
-            <td>قاسم بساکی</td>
+            <td>وحید سعید</td>
             <td>09110110011</td>
             <td>mahdicmptr@gmail.com</td>
             <td>کاربر</td>

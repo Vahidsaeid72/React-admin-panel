@@ -4,7 +4,7 @@ import AddButtonLink from "../../components/AddButtonLink";
 import PaginatedTable from "../../components/paginatedtable";
 import { getAllDiscountsService } from "../../services/discount";
 import Actions from "./tableAdditional/Actions";
-import { canvertDatetojalali } from "./../../utils/convertData"
+import { canvertDatetojalali } from "./../../utils/convertDate"
 
 const DiscountsTable = () => {
 

@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddCarts from "./AddCarts";
 import CartsTabe from "./cartsTabe";
 
 const Carts = () => {
+  useTitle("مدیریت سبدها");
   return (
     <>
       <div

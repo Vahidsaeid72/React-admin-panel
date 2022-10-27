@@ -9,7 +9,7 @@ import AddCategory from "./AddCategory";
 import Actions from "./tableAdditions/Actions";
 import ShowInMenu from "./tableAdditions/showInMenu";
 
-import { canvertDatetojalali } from "../../utils/convertData";
+import { canvertDatetojalali } from "../../utils/convertDate";
 import { Alert, Confirm } from "../../utils/alert";
 
 const CategoryTable = () => {

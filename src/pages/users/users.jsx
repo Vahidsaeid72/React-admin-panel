@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddUsers from "./AddUsers";
 import UsersTable from "./usersTable";
 
 const Users = () => {
+  useTitle("کاربران");
   return (
     <>
       <div

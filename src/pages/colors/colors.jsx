@@ -1,8 +1,9 @@
 import React from "react";
-import AddColor from "./AddColor";
+import useTitle from "../../hook/useTitle";
 import ColorsTable from "./colorsTable";
 
 const Colors = () => {
+  useTitle("رنگ ها");
   return (
     <>
       {" "}

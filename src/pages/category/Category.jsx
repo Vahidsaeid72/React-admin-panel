@@ -1,8 +1,10 @@
 import React from "react";
 import CategoryContextContainer from "../../context/CategoryContext";
+import useTitle from "../../hook/useTitle";
 import CategoryTable from "./CategoryTable";
 
 const Category = () => {
+  useTitle("دسته بندی ها");
   return (
     <CategoryContextContainer>
       <div>

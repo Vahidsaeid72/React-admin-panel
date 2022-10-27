@@ -1,7 +1,9 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import GuarantesTable from "./guarantesTable";
 
 const Guarantes = () => {
+  useTitle(" گارانتی ها");
   return (
     <>
       <div

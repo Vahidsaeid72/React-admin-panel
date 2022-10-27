@@ -1,7 +1,9 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import DiscountsTable from "./discountsTable";
 
 const Discounts = () => {
+  useTitle("تخفیف ها");
   return (
     <>
       <div

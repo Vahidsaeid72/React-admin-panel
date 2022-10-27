@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddRoles from "./AddRoles";
 import RolesTable from "./rolesTable";
 
 const Roles = () => {
+  useTitle("نقش ها");
   return (
     <>
       <div

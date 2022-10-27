@@ -1,8 +1,10 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddDelivery from "./AddDelivery";
 import DeliverysTable from "./deliverysTable";
 
 const Deliverys = () => {
+  useTitle("مدیریت ارسال");
   return (
     <>
       <div

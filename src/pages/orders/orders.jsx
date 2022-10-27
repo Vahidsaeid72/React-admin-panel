@@ -1,9 +1,11 @@
 import React from "react";
+import useTitle from "../../hook/useTitle";
 import AddOrderDetails from "./AddOrderDetails";
 import AddOrders from "./AddOrders";
 import OrdersTable from "./ordersTable";
 
 const Orders = () => {
+  useTitle("مدیریت سفارشات");
   return (
     <>
       <div
