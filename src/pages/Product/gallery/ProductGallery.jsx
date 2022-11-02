@@ -8,9 +8,9 @@ import PrevPageButton from "../../../components/prevPageButton";
 import { apiPath } from "../../../services/httpServices";
 
 const ProductGallery = () => {
-    const location = useLocation()
-    const { selectedProduct } = location.state
-    const [gallery, setGallery] = useState(selectedProduct.gallery)
+    const location = useLocation();
+    const { selectedProduct } = location.state  //vaghti roye icon gallery click mishe etelaat ro dar ye state benam selectedProduct baraye ma ersal mikone
+    const [gallery, setGallery] = useState(selectedProduct.gallery) //dar in etelaat fildi be nam gallery az samte back end miyad ke array hast az etelaat tasavir zakhire shode baraye in mahsol
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -22,12 +22,13 @@ const ProductGallery = () => {
         if (image.type != "image/png" && image.type != "image/jpeg" && image.type != "image/jpg")
             return setError("لطفا فقط از فایل با فرمت jpg و یا png استفاده کنید")
         if (image.size > 512000) return setError("حجم تصویر نباید بیشتر از 500 کیلوبایت باشد")
-
+        //agar in 2ta if harkom barghrar bashe va return shon ejra beshe edame code ejra nemishe dg 
         setLoading(true)
         const res = await addProductImageService(selectedProduct.id, formdata)
         setLoading(false)
         if (res.status === 201) {
             Alert('انجام شد', res.data.message, 'success');
+            //inja migam vaghti dar data base tasvir sabt shode on tasvir ro be state gallery man ezafe kon ta dar in safe namayesh dade bshe
             setGallery(old => [...old, { id: res.data.data.id, is_main: 0, image: res.data.data.image }])
         }
     }
@@ -51,9 +52,9 @@ const ProductGallery = () => {
         if (res.status === 200) {
             Alert('انجام شد', res.data.message, 'success');
             setGallery(old => {
-                let newGallery = old.map(img => { return { ...img, is_main: 0 } })
-                const index = newGallery.findIndex(i => i.id == imageId);
-                newGallery[index].is_main = 1;
+                let newGallery = old.map(img => { return { ...img, is_main: 0 } })  //aval is_main hame tasaviro sefr kon
+                const index = newGallery.findIndex(i => i.id == imageId);   //bad index oni ke rosh click kardam peyda kon
+                newGallery[index].is_main = 1;  //is main ono yek kon
                 return newGallery
             })
         }

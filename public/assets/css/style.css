@@ -87,6 +87,10 @@ body {
 
 .hoverable_text {
   transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
 }
 .hoverable_text:hover {
   text-shadow: 0 0 3px black;
@@ -210,27 +214,44 @@ th {
 .top_navbar .mini_menu {
   position: absolute;
   font-size: 0.8rem;
-  background: rgb(206, 228, 231);
+  background: #212529;
+  color: #f3f3f3 !important;
   height: 0;
-  /* width: 0; */
+  top: 25px;
   width: 150px;
   overflow: hidden;
   margin-top: 20px;
   margin-left: 20px;
-  /* padding: 5px; */
   transition: all 0.4s ease-in-out;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.top_navbar .mini_menu li a {
+  color: #5a9adb !important;
+  text-shadow: 0 0 15px #077171 !important;
 }
 .mini_menu.toggle_myMenu {
   position: absolute;
-  height: 220px;
+  height: 230px;
+}
+.mini_menu.toggle_myMenu li {
+  width: 100% !important;
 }
 .top_navbar .mini_menu i {
   font-size: 0.8rem;
 }
+
+.dropdown-item:hover {
+  background: unset !important ;
+}
+
 .top_navbar .alarm_count {
   position: absolute;
   top: -5px;

@@ -22,7 +22,7 @@ const SetAttribute = () => {
     const { attrsVar, initials, rules } = await initializingData(selectedProduct)
     setAttrs(attrsVar)
     setInitialValues(initials)
-    setValidationSchema(Object.keys(initials).length > 0 ? Yup.object(rules) : {})
+    setValidationSchema(Object.keys(initials).length > 0 ? Yup.object(rules) : {}) //migam check kon agar initials dar khodesh key dash(yani khali nabod) bia bezaresh to yup dar gheyre in sorat ye object khali bargardon
 
   }
   useEffect(() => {

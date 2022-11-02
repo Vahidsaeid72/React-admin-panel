@@ -4,9 +4,9 @@ import { addProductAttrService } from "../../../services/products";
 import { Alert } from "../../../utils/alert";
 
 export const onSubmit = async (values, actions, productId) => {
-  let data = {};
+  let data = {}; //roye values ke baraye ma ersal mishe yek halghe mizanim ta be formate morde nizae baraye ersal be server tabdi beshe
   for (const key in values) {
-    if (values[key]) data = { ...data, [key]: { value: values[key] } };
+    if (values[key]) data = { ...data, [key]: { value: values[key] } }; //chon values ma maghadir khali ham miyare be dalil inke vijegihaye ma requrd nist ma dar in halghe shart migzarim ke on key hayi ke value daran ro baraye ma be in format tabdil kone
   }
 
   const res = await addProductAttrService(productId, data);
@@ -16,9 +16,10 @@ export const onSubmit = async (values, actions, productId) => {
 };
 
 export const initializingData = async (selectedProduct) => {
-  let attrsVar = [];
-  let initials = {};
-  let rules = {};
+  let attrsVar = []; //vijegihamon
+  //chon initioalvalues va validtionschima tedad fild sabti nadran ma bayad to halghei ke mizanim baraye gereftan vijegihamon initioalvalues va validtionschima ro ham besazim
+  let initials = {}; //initioalvalues
+  let rules = {}; //validtionschima
   const promise = Promise.all(
     selectedProduct.categories.map(async (cat) => {
       const res = await getCategoryAttrsService(cat.id);
@@ -32,6 +33,8 @@ export const initializingData = async (selectedProduct) => {
             const value =
               selectedProduct.attributes.filter((a) => a.id == d.id)[0]?.pivot
                 .value || "";
+            //agar baraye in vijegi meghdari peyda kardi(?)(etelaat az samte server ba name pivot dare miyas) meghdaresho bezar agar nadash yek "" bezar
+
             initials = { ...initials, [d.id]: value };
             rules = {
               ...rules,
@@ -45,8 +48,9 @@ export const initializingData = async (selectedProduct) => {
       }
     })
   );
-  const promisRes = await promise;
+  const promisRes = await promise; //inja migam sabr kon promis.all man karesh tamom beshe
   return {
+    //vaghti karet tamom shod in 3ta ro return kon
     attrsVar,
     initials,
     rules,
