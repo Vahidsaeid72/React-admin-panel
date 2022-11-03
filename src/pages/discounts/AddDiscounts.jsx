@@ -2,18 +2,20 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import FormikControl from "../../components/form/FormikControl";
 import SubmitButton from "../../components/form/SubmitButton";
 import ModalsContainer from "../../components/modalsContainer";
 import { getAllProductTitlesService } from "../../services/products";
 import { initialValues, onSubmit, validationSchema } from "./core";
 
-const AddDiscounts = () => {
+const AddDiscounts = ({ }) => {
   const navigate = useNavigate()
   const [allProducts, setAllProducts] = useState([])
   const [discountToEdit, setDiscountToEdit] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
+
+  const { setData } = useOutletContext(); // ba in hook mishe prop hayi ke ba object context ersal kardim be outled ro daryaft konim
 
   const handleGetAllProductTitles = async () => {
     const res = await getAllProductTitlesService();
@@ -22,16 +24,32 @@ const AddDiscounts = () => {
     }
   }
 
+  const handleSetProdocutSelectedBox = (formik) => {
+    const idsArray = formik.values.product_ids.split('-').filter(id => id);//inja mikham agar az ghable mahsoli entekhab shode id hasho begiram va tabdil konam be araye chone beshekle string vared shode dar component 'filter(id => id)' in mord ham bekhatere inke hata agar mahsoli nabod bazam araye bargardone string bar nagardone
+    const selectedProductArray = idsArray.map((id) => (allProducts.filter(product => product.id == id)[0]))
+    return (
+      <FormikControl
+        className="animate__animated animate__shakeX"
+        label="برای"
+        control="searchAbleSelect"
+        options={allProducts}
+        name="product_ids"
+        firstItem="محصول مورد نظر را انتخاب کنبد..."
+        resultType="string"
+        initialItems={selectedProductArray.length > 0 ? selectedProductArray : selectedProducts}
+      />
+    )
+  }
+
   useEffect(() => {
     handleGetAllProductTitles()
     if (discountToEdit) {
       setSelectedProducts(discountToEdit.products.map(p => { return { id: p.id, value: p.title } }))
     }
   }, [])
-
   return (
     <ModalsContainer
-      className="show d-block animate__animated animate__fadeInDown animate__fast"
+      className="show d-block"
       id={"add_discount_modal"}
       title={"افزودن کد تخفیف"}
       fullScreen={false}
@@ -42,7 +60,7 @@ const AddDiscounts = () => {
 
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => onSubmit(values, actions)}
+            onSubmit={(values, actions) => onSubmit(values, actions, setData)}
             validationSchema={validationSchema}
           >
             {formik => {
@@ -86,18 +104,7 @@ const AddDiscounts = () => {
                     </div>
                   </div>
                   {
-                    formik.values.for_all ? (
-                      <FormikControl
-                        className="animate__animated animate__shakeX"
-                        label="برای"
-                        control="SearchableSelect"
-                        options={allProducts}
-                        name="product_ids"
-                        firstItem="محصول مورد نظر را انتخاب کنبد..."
-                        resultType="string"
-                        initialItems={selectedProducts}
-                      />
-                    ) : null
+                    !formik.values.for_all ? (handleSetProdocutSelectedBox(formik)) : null
                   }
                   <div className="btn_box text-center col-12 mt-4">
                     <SubmitButton />

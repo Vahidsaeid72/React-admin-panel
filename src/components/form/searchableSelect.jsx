@@ -13,6 +13,7 @@ const SearchableSelect = ({
   firstItem,
   initialItems,
 }) => {
+
   const [selectedItems, setSelectedItems] = useState([]);
   const [showItems, setShowItems] = useState(false);
   const [copyOptions, setCopyOptions] = useState(options);

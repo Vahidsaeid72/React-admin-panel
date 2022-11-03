@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SpinnerLoad from "./spinnerLoad";
-
+import './style/PaginatedTable.css';
 const PaginatedTable = ({
   children,
   data,

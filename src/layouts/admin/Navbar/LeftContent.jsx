@@ -27,7 +27,7 @@ const Leftcontent = () => {
       <ul
         className={` ${showMenu ? 'mini_menu toggle_myMenu' : "mini_menu"}`}
       >
-        <li className="my-2 mx-3">
+        <li className="my-2">
           <span className=" d-block text-center fw-bold fs-5">وحید سعید</span>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">

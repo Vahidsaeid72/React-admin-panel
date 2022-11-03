@@ -67,7 +67,8 @@ const DiscountsTable = () => {
       numOfPage={8}
       loading={loading}>
       <AddButtonLink href={"/discounts/add-discount-code"} />
-      <Outlet />
+      <Outlet context={{ setData }} />
+      {/* inja "setData" ro baray "Outlet" ke hamon "addDiscounts" hast ersal mikonam be in shive ta zamani ke yek takhfif jadid sakhte shod ba data jadvalemon inja ezafe beseh */}
     </PaginatedTable>
   );
 };

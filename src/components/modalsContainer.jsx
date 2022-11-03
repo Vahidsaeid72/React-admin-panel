@@ -1,13 +1,15 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import './style/modalsContainer.css';
+import './style/animate.min.css';
 
 const ModalsContainer = ({ children, id, fullscreen, title, className, closeFunction }) => {
   return createPortal(
     <>
       <>
-        <div className={`modal fade ${className || ""}`} id={id} tabIndex="-1" aria-hidden="true">
+        <div className={`modal fade back_smoke animate_animated animate_fadeIn animate_fast ${className || ""}`} id={id} tabIndex="-1" aria-hidden="true">
           <div
-            className={`modal-dialog ${fullscreen ? "modal-fullscreen" : null}`}
+            className={`modal-dialog animate__animated animate__fadeInDown animate__fast ${fullscreen ? "modal-fullscreen" : null}`}
           >
             <div className="modal-content">
               <div className="modal-header">

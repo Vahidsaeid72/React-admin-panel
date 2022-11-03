@@ -1,0 +1,13 @@
+* {
+  direction: rtl;
+}
+.dir_ltr {
+  direction: ltr;
+}
+.pointer {
+  cursor: pointer;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -1,5 +1,7 @@
 import * as Yup from "yup";
-import jMoment from "jalali-moment";
+import { addNewDiscountService } from "../../services/discount";
+import { Alert } from "../../utils/alert";
+import { convertDateToMilady } from "../../utils/convertDate";
 
 export const initialValues = {
   title: "",
@@ -10,11 +12,21 @@ export const initialValues = {
   product_ids: "",
 };
 
-export const onSubmit = async (values, actions) => {
-  console.log(values);
+export const onSubmit = async (values, actions, setData) => {
+  values = {
+    ...values,
+    expire_at: convertDateToMilady(values.expire_at),
+  };
+  const res = await addNewDiscountService(values);
+  if (res.status == 201) {
+    Alert("انجام شد", res.data.message, "success");
+    actions.resetForm();
+    setData((old) => [...old, res.data.data]);
+  }
 };
 
 export const validationSchema = Yup.object().shape({
+  //vaghti bekhay az when estefade koni hatman bayad az method *shape* dar edame abject estefade koni
   title: Yup.string()
     .required("لطفا این قسمت را پر کنید")
     .matches(
@@ -30,6 +42,7 @@ export const validationSchema = Yup.object().shape({
   percent: Yup.number().required("لطفا این قسمت را پر کنید"),
   for_all: Yup.boolean(),
   product_ids: Yup.string().when("for_all", {
+    //inja az when estefade kardim baraye shart gozashtan
     is: false,
     then: Yup.string()
       .required("لطفا این قسمت را پر کنید")
