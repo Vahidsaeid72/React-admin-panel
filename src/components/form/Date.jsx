@@ -21,7 +21,7 @@ const months = [
     { id: 12, value: "اسفند" },
 ]
 
-const Date = ({ formik, name, label, yearsLimit }) => {
+const Date = ({ formik, name, label, yearsLimit, initialDate }) => {
 
     const [day, setDay] = useState();
     const [month, setMonth] = useState();
@@ -30,11 +30,11 @@ const Date = ({ formik, name, label, yearsLimit }) => {
     const [showConfig, setShowConfig] = useState(false)
 
     useEffect(() => {
-        let now = jMoment();
+        let now = jMoment(initialDate); // mitonim meghdar avaliye bedim behesh vagarna tarikh hamon roz ro dare va tarikh daryafti bayad be miladi bashe 
         setDay(now.jDate());
         setMonth(now.jMonth() + 1);
         setYear(now.jYear());
-    }, [])
+    }, [initialDate])
 
     const handleShowDateConfig = () => {
         for (let index = parseInt(year) - (yearsLimit?.from || 100); index <= parseInt(year) + (yearsLimit?.to || 0); index++) {

@@ -2,21 +2,24 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import FormikControl from "../../components/form/FormikControl";
 import SubmitButton from "../../components/form/SubmitButton";
 import ModalsContainer from "../../components/modalsContainer";
 import { getAllProductTitlesService } from "../../services/products";
+import { canvertDatetojalali } from "../../utils/convertDate";
 import { initialValues, onSubmit, validationSchema } from "./core";
 
-const AddDiscounts = ({ }) => {
+const AddDiscounts = () => {
   const navigate = useNavigate()
   const [allProducts, setAllProducts] = useState([])
-  const [discountToEdit, setDiscountToEdit] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
+  const [reInitialValues, setReInitialValues] = useState(null);
+
+  const location = useLocation();
+  const discountToEdit = location.state?.discountToEdit;
 
   const { setData } = useOutletContext(); // ba in hook mishe prop hayi ke ba object context ersal kardim be outled ro daryaft konim
-
   const handleGetAllProductTitles = async () => {
     const res = await getAllProductTitlesService();
     if (res.status === 200) {
@@ -26,7 +29,7 @@ const AddDiscounts = ({ }) => {
 
   const handleSetProdocutSelectedBox = (formik) => {
     const idsArray = formik.values.product_ids.split('-').filter(id => id);//inja mikham agar az ghable mahsoli entekhab shode id hasho begiram va tabdil konam be araye chone beshekle string vared shode dar component 'filter(id => id)' in mord ham bekhatere inke hata agar mahsoli nabod bazam araye bargardone string bar nagardone
-    const selectedProductArray = idsArray.map((id) => (allProducts.filter(product => product.id == id)[0]))
+    const selectedProductArray = idsArray.map((id) => (allProducts.filter(product => product.id == id)[0])).filter(product => product)
     return (
       <FormikControl
         className="animate__animated animate__shakeX"
@@ -43,15 +46,26 @@ const AddDiscounts = ({ }) => {
 
   useEffect(() => {
     handleGetAllProductTitles()
+
     if (discountToEdit) {
-      setSelectedProducts(discountToEdit.products.map(p => { return { id: p.id, value: p.title } }))
+      setSelectedProducts(discountToEdit.products.map(p => { return { id: p.id, value: p.title } }));
+
+      const pruductIds = discountToEdit.products.map(p => p.id).join('-');
+      setReInitialValues({
+        ...discountToEdit,
+        expire_at: canvertDatetojalali(discountToEdit.expire_at, 'jD / jM / jYYYY'),
+        for_all: discountToEdit.for_all ? true : false,
+        product_ids: pruductIds,
+      })
     }
   }, [])
+
+
   return (
     <ModalsContainer
       className="show d-block"
       id={"add_discount_modal"}
-      title={"افزودن کد تخفیف"}
+      title={discountToEdit ? "ویرایش کد تخفیف" : "افزودن کد تخفیف"}
       fullScreen={false}
       closeFunction={() => navigate(-1)}
     >
@@ -59,11 +73,13 @@ const AddDiscounts = ({ }) => {
         <div className="row justify-content-center">
 
           <Formik
-            initialValues={initialValues}
-            onSubmit={(values, actions) => onSubmit(values, actions, setData)}
+            initialValues={reInitialValues || initialValues}
+            onSubmit={(values, actions) => onSubmit(values, actions, setData, discountToEdit)}
             validationSchema={validationSchema}
+            enableReinitialize
           >
             {formik => {
+
               return (
                 <Form>
                   <FormikControl
@@ -92,6 +108,7 @@ const AddDiscounts = ({ }) => {
                     formik={formik}
                     name="expire_at"
                     label="تاریخ انقضاء"
+                    initialDate={discountToEdit?.expire_at || undefined}
                     yearsLimit={{ from: 10, to: 10 }}
                   />
                   <div className="row mb-2">

@@ -1,7 +1,7 @@
 import jMoment from "jalali-moment";
 
-export const canvertDatetojalali = (date) => {
-  return jMoment(date).format("jYYYY-jMM-jDD");
+export const canvertDatetojalali = (date, format = "jYYYY-jMM-jDD") => {
+  return jMoment(date).format(format);
 };
 
 export const convertDateToMilady = (date) => {

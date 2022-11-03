@@ -48,7 +48,9 @@ const Content = () => {
         <Route path="/Guarantes" element={<Guarantes />} />
         <Route path="/Brands" element={<Brands />} />
         <Route path="/Discounts" element={<Discounts />} >
-          <Route path="/Discounts/add-discount-code" element={<AddDiscounts />} />
+          <Route path="/Discounts/add-discount-code" element={<AddDiscounts />} >
+            <Route path=":discountId" />
+          </Route>
         </Route>
         <Route path="/Carts" element={<Carts />} />
         <Route path="/Orders" element={<Orders />} />

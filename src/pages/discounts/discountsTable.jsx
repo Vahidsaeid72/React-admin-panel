@@ -2,15 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import AddButtonLink from "../../components/AddButtonLink";
 import PaginatedTable from "../../components/paginatedtable";
-import { getAllDiscountsService } from "../../services/discount";
+import { deleteDiscountService, getAllDiscountsService } from "../../services/discount";
 import Actions from "./tableAdditional/Actions";
 import { canvertDatetojalali } from "./../../utils/convertDate"
+import { Alert, Confirm } from "../../utils/alert";
 
 const DiscountsTable = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [codeToEdit, setCodeToEdit] = useState(null)
+  const [codeToEdit, setCodeToEdit] = useState(null);
+
+
+  const handleDeleteDiscount = async (rowData) => {
+    if (await Confirm(
+      "حذف کد تخفیف",
+      `آیا از حذف کد تخفیف ${rowData.title} اطمینان دارید ؟`
+    )
+    ) {
+      const res = await deleteDiscountService(rowData.id);
+      if (res.status === 200) {
+        setData(data.filter((d) => d.id !== rowData.id));
+        Alert("انجام شد ", res.data.message, "success");
+      }
+    }
+  }
 
   const dataInfo = [
     { field: "id", title: "#" },
@@ -35,7 +51,7 @@ const DiscountsTable = () => {
     {
       field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} />,
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteDiscount={handleDeleteDiscount} />,
     },
   ];
 
@@ -57,6 +73,9 @@ const DiscountsTable = () => {
   useEffect(() => {
     handleGetAllDiscounts()
   }, [])
+
+
+
 
 
   return (

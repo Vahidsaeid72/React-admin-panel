@@ -1,5 +1,8 @@
 import * as Yup from "yup";
-import { addNewDiscountService } from "../../services/discount";
+import {
+  addNewDiscountService,
+  updateDiscountService,
+} from "../../services/discount";
 import { Alert } from "../../utils/alert";
 import { convertDateToMilady } from "../../utils/convertDate";
 
@@ -12,16 +15,33 @@ export const initialValues = {
   product_ids: "",
 };
 
-export const onSubmit = async (values, actions, setData) => {
+export const onSubmit = async (values, actions, setData, discountToEdit) => {
   values = {
     ...values,
     expire_at: convertDateToMilady(values.expire_at),
   };
-  const res = await addNewDiscountService(values);
-  if (res.status == 201) {
-    Alert("انجام شد", res.data.message, "success");
-    actions.resetForm();
-    setData((old) => [...old, res.data.data]);
+
+  if (discountToEdit) {
+    const res = await updateDiscountService(discountToEdit.id, values);
+
+    if (res.status == 200) {
+      console.log(res);
+      Alert("انجام شد", res.data.message, "success");
+      actions.resetForm();
+      setData((olData) => {
+        let newData = [...olData];
+        let index = newData.findIndex((d) => d.id == discountToEdit.id);
+        newData[index] = res.data.data;
+        return newData;
+      });
+    }
+  } else {
+    const res = await addNewDiscountService(values);
+    if (res.status == 201) {
+      Alert("انجام شد", res.data.message, "success");
+      actions.resetForm();
+      setData((old) => [...old, res.data.data]);
+    }
   }
 };
 
