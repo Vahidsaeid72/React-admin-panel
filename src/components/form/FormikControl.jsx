@@ -1,4 +1,5 @@
 import React from "react";
+import CheckBox from "./CheckBox";
 import Ckeditor from "./CkEditor";
 import Date from "./Date";
 import File from "./File";
@@ -29,6 +30,8 @@ const FormikControl = (props) => {
       return <Switch {...props} />;
     case "date":
       return <Date {...props} />;
+    case "checkbox":
+      return <CheckBox {...props} />;
     default:
       return null;
   }

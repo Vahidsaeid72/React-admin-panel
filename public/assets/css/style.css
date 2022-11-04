@@ -369,13 +369,17 @@ th {
 }
 
 #sidebar_section .group_sidebar_title {
+  font-size: 16px;
   color: #3186e7 !important;
   text-shadow: 0 0 12px #077171 !important;
 }
 .sidebar_menu_item.active {
   background: rgb(85, 84, 84);
 }
-
+.sidebar-items-container {
+  max-height: calc(100vh - 220px);
+  overflow: auto;
+}
 /* sidebar end-------<<<<<<< */
 
 /* content start------->>>>>>> */

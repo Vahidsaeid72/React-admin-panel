@@ -1,74 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PaginatedTable from "../../components/paginatedtable";
+import { getAllpermissionsService } from "../../services/permissions";
 
 const PermissionsTable = () => {
-  return (
-    <>
-      <table className="table table-responsive text-center table-hover table-bordered">
-        <thead className="table-secondary">
-          <tr>
-            <th>#</th>
-            <th>عنوان</th>
-            <th>توضیحات</th>
-            <th>وضعیت</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td> مجوز شماره 1</td>
-            <td>توضیحات در مورد این مجوز که چیست و کلیات آن کدام است</td>
-            <td>
-              <div className="form-check form-switch d-flex justify-content-center align-items-center p-0 h-100">
-                <label
-                  className="form-check-label pointer"
-                  htmlFor="flexSwitchCheckDefault"
-                >
-                  فعال
-                </label>
-                <input
-                  className="form-check-input pointer mx-3"
-                  type="checkbox"
-                  id="flexSwitchCheckDefault"
-                />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav
-        aria-label="Page navigation example"
-        className="d-flex justify-content-center"
-      >
-        <ul className="pagination dir_ltr">
-          <li className="page-item">
-            <a className="page-link" href="#/" aria-label="Previous">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/" aria-label="Next">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </>
-  );
-};
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "title", title: "عنوان مجوز" },
+    { field: "description", title: "توضیحات" },
+    { field: "category", title: "دسته بندی ها" },
+  ];
+
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
+
+  const handleGetAllPermissions = async () => {
+    setLoading(true);
+    const res = await getAllpermissionsService();
+    if (res.status === 200) {
+      setData(res.data.data);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    handleGetAllPermissions();
+  }, [])
+  return (
+    <PaginatedTable
+      data={data}
+      dataInfo={dataInfo}
+      searchPrams={searchParams}
+      numOfPage={9}
+      loading={loading}
+    >
+    </PaginatedTable>
+  )
+}
 export default PermissionsTable;
