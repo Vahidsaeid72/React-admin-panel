@@ -1,79 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import AddButtonLink from "../../components/AddButtonLink";
+import PaginatedDataTable from "../../components/paginatedDataTable";
+import { deleteUserService, getAllPaginatedUsersService } from "../../services/users";
+import { Alert, Confirm } from "../../utils/alert";
+import Actions from "./tableAdditions/Actions";
+import Roles from "./tableAdditions/roles";
+;
 
 const UsersTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchChar, setSearchChar] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);  //صفحه جاری
+  const [countOnPage, setCountOnPage] = useState(5);
+  const [pageCount, setPageCount] = useState(0);
+
+  const handleDeleteUser = async (user) => {
+    if (await Confirm("حذف کاربر", `آیا از حذف ${user.user_name} اطمینان دارید؟`)) {
+      const res = await deleteUserService(user.id);
+      if (res.status === 200) {
+        Alert("انجام شد", res.data.message, "success");
+        handleGetUsers(currentPage, countOnPage, searchChar)
+      }
+    }
+  }
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "user_name", title: "نام کاربری" },
+    {
+      field: null,
+      title: "نام",
+      elements: (rowData) => `${rowData.first_name || ""} ${rowData.last_name || ""}`,
+    },
+    {
+      field: null,
+      title: "نقش",
+      elements: (rowData) => <Roles rowData={rowData} />,
+    },
+    { field: "phone", title: "شماره تلفن" },
+    { field: "email", title: "ایمیل" },
+    {
+      field: null,
+      title: "جنسیت",
+      elements: (rowData) => rowData.gender == 1 ? "آقا" : "خانم",
+    },
+    {
+      field: null,
+      title: "عملیات",
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteUser={handleDeleteUser} />,
+    },
+  ];
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از ایمیل یا شماره تلفن را وارد کنید",
+  };
+  const handleSearch = (char) => {
+    setSearchChar(char)
+    handleGetUsers(1, countOnPage, char)
+  }
+
+  const handleGetUsers = async (page, count, char) => {
+    setLoading(true)
+    const res = await getAllPaginatedUsersService(page, count, char)
+    res && setLoading(false)
+    if (res.status === 200) {
+      setData(res.data.data.data)
+      setPageCount(res.data.last_page)
+    }
+  }
+
+
+  useEffect(() => {
+    handleGetUsers(currentPage, countOnPage, searchChar)
+  }, [currentPage])
+
   return (
     <>
-      {" "}
-      <table className="table table-responsive text-center table-hover table-bordered">
-        <thead className="table-secondary">
-          <tr>
-            <th>#</th>
-            <th>نام و نام خانوادگی</th>
-            <th>موبایل</th>
-            <th>ایمیل</th>
-            <th>نقش </th>
-            <th>تاریخ ثبت نام</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>وحید سعید</td>
-            <td>09110110011</td>
-            <td>mahdicmptr@gmail.com</td>
-            <td>کاربر</td>
-            <td>1400/10/12</td>
-            <td>
-              <i
-                className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-                title="جزئیات و ویرایش کاربر"
-                data-bs-toggle="modal"
-                data-bs-placement="top"
-                data-bs-target="#add_user_modal"
-              ></i>
-              <i
-                className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-                title="حذف کاربر"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav
-        aria-label="Page navigation example"
-        className="d-flex justify-content-center"
+      <PaginatedDataTable
+        tableData={data}
+        dataInfo={dataInfo}
+        loading={loading}
+        pageCount={pageCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        searchParams={searchParams}
+        handleSearch={handleSearch}
       >
-        <ul className="pagination dir_ltr">
-          <li className="page-item">
-            <a className="page-link" href="#/" aria-label="Previous">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#/" aria-label="Next">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <AddButtonLink href="/Users/add-user" />
+        <Outlet context={{ setData }} />
+      </PaginatedDataTable>
     </>
   );
 };

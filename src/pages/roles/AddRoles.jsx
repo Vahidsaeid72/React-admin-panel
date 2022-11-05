@@ -59,8 +59,8 @@ const AddRoles = () => {
         className="show d-block"
         id={"add_role_modal"}
         title={
-          editType === "role" ? "ویرایش نقش" + roleToEdit?.title || "" :
-            editType === "permissions" ? "ویرایش مجوز های دسترسی " + roleToEdit?.title || "" :
+          editType === "role" ? "ویرایش نقش :  " + roleToEdit?.title || "" :
+            editType === "permissions" ? "ویرایش مجوز های دسترسی :  " + roleToEdit?.title || "" :
               "افزودن نقش جدید"
         }
         fullscreen={editType == 'role' ? false : true}

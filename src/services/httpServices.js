@@ -10,7 +10,7 @@ axios.interceptors.response.use(
       if (typeof res.data === "object") {
         let message = "";
         for (const key in res.data) {
-          message = message + `${key} : ${res.data[key]}`;
+          message = message + res.data[key];
         }
         res.data.message = message;
       }
